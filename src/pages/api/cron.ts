@@ -13,7 +13,7 @@
 // }
 
 import nodemailer from 'nodemailer';
-import { NextApiResponse,NextApiRequest } from 'next';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.mailtrap.io',
@@ -40,7 +40,7 @@ async function sendEmail() {
   }
 }
 
-export default async function handler(req : NextApiRequest,res:NextApiResponse){
+export default async function handler(req : VercelRequest,res:VercelResponse){
   if(req.method === 'POST'){
     const emailRes = await sendEmail()
     if(emailRes?.messageId){
